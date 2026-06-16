@@ -12,12 +12,12 @@ terraform {
     }
   }
 
-  # Remote state in GCS so a cluster loss never loses the record of what we manage.
-  # tofu-bootstrap GSA (via Workload Identity) owns this bucket.
-  backend "gcs" {
-    bucket = "dev-infra-test-497417-tofu-state"
-    prefix = "opentofu-controller-poc"
-  }
+  # NOTE: no `backend` block here on purpose.
+  # tofu-controller INJECTS the backend itself. By default it injects a Kubernetes
+  # backend (state in an in-cluster Secret), and a backend block here would collide
+  # with that on `tofu init` ("Duplicate backend configuration").
+  # We select the remote GCS backend via spec.backendConfig.customConfiguration on
+  # the Terraform CR instead — see hello-world/02-terraform-plan-approve.yaml.
 }
 
 provider "google" {
