@@ -44,6 +44,7 @@ resource "google_storage_bucket" "hello" {
     managed-by = "tofu-controller"
     poc        = "opentofu-controller"
     env        = "dev"
+    owner      = "branch-planner-demo"
   }
 }
 
