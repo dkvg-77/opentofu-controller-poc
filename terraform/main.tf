@@ -43,7 +43,7 @@ resource "google_storage_bucket" "hello" {
   labels = {
     managed-by = "tofu-controller"
     poc        = "opentofu-controller"
-    env        = "dev"
+    env        = "staging"
     owner      = "branch-planner-demo"
   }
 }
